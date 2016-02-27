@@ -32,19 +32,51 @@ public class bytePlay {
     
     
     
-    public String enFiestel(String text,String key){
+    public String enFiestel(String left,String right){
         String cipher="";
+        String temp;
         
+        System.out.println("Fiestel starting :");
+        System.out.println("\tleft : "+left);
+        System.out.println("\tright : "+right);
         
+        for(int i=0;i<16;i++){
+            System.out.println("Running stage No "+i);
+            left = xor(left,right);
+            temp = left;
+            left = right;
+            right = temp;
+            System.out.println("\tleft : "+left);
+            System.out.println("\tright : "+right);
+        }
         
+        cipher = right+left;
+        System.out.println("Final cipher = "+cipher);
         return cipher;
     }
     
     
     
-    public String deFiestel(String cipher,String key){
+    public String deFiestel(String left,String right){
         String text="";
+        String temp;
         
+        System.out.println("deFiestel starting :");
+        System.out.println("\tleft : "+left);
+        System.out.println("\tright : "+right);
+        
+        for(int i=0;i<16;i++){
+            System.out.println("Running stage No "+i);
+            left = xor(left,right);
+            temp = left;
+            left = right;
+            right = temp;
+            System.out.println("\tleft : "+left);
+            System.out.println("\tright : "+right);
+        }
+        
+        text = right+left;
+        System.out.println("Final text = "+text);
         return text;
     }
     
@@ -99,7 +131,7 @@ public class bytePlay {
            
            //i=(i+1)%8;
        }
-       System.out.println("xored thing = " + result);
+       //System.out.println("xored thing = " + result);
        return result;
    }
        

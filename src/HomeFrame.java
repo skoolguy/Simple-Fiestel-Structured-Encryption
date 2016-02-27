@@ -160,9 +160,9 @@ public class HomeFrame extends javax.swing.JFrame {
         
         
         String cipherText = ob.enFiestel(p1,p2);
-        cipherText = ob.xor(p1,p2);
-        System.out.println("XORed p1 and p2 : "+cipherText);
-        cipherText = ob.string2bin(cipherText);
+        //cipherText = ob.xor(p1,p2);
+        //System.out.println("XORed p1 and p2 : "+cipherText);
+        //cipherText = ob.string2bin(cipherText);
         cipherField.setText(cipherText);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -174,12 +174,20 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cipher = cipherField.getText();
         String key = keyField.getText();
-        
+        int len = cipher.length();
+        System.out.println("length of cipher = "+len);
         bytePlay ob = new bytePlay();
-        cipher = ob.bin2string(cipher);
+        //cipher = ob.bin2string(cipher);
         
-        String plainText = ob.deFiestel(cipher,key);
-        plainText = ob.xor(cipher, key);
+        String p1 = cipher.substring(0, (len/2));
+        String p2 = cipher.substring(len/2);
+        
+        System.out.println("Splitted text are : ");
+        System.out.println("\t"+p1);
+        System.out.println("\t"+p2);
+        
+        String plainText = ob.deFiestel(p1,p2);
+        //plainText = ob.xor(cipher, key);
         
         plainTextField.setText(plainText);
     }//GEN-LAST:event_jButton2ActionPerformed
