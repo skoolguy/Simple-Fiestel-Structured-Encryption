@@ -15,8 +15,13 @@ public class tests {
     tests(){
          String s = "ajmal";
          
+         String s1,s2;
          
-       //  int len = binary.length();
+         //s1 = s.substring(1);
+         s1 = s.substring(1);
+         s1+=s.substring(0,1);
+         //System.out.println("s1 = "+s1 );
+         System.out.println("s1 = "+s1);
     }
     
     public static void main(String args[]){

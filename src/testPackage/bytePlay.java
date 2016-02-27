@@ -12,37 +12,33 @@ package testPackage;
 public class bytePlay {
     
     public bytePlay(){
-        String name = "maakkachi pokkachi";
-        String key = "hahahaha";
-        
-        //String res = xor(name,key);
-       // System.out.println("\n\nagain\n");
-       // System.out.println(xor(res,key));
-        
-       /* byte[] bname = name.getBytes();
-        
-        System.out.println("Bytes = ");
-        for(byte a: bname){
-            int val = a;
-            System.out.println(val);
-        }*/
-        
-        
     }
     
     
     
-    public String enFiestel(String left,String right){
+    public String enFiestel(String left,String right,String key){
+        System.out.println("EXECUTING ENFIESTEL");
         String cipher="";
-        String temp;
+        String temp,rounded;
+        String s = key;
+        String s1;
         
         System.out.println("Fiestel starting :");
         System.out.println("\tleft : "+left);
         System.out.println("\tright : "+right);
         
         for(int i=0;i<16;i++){
-            System.out.println("Running stage No "+i);
-            left = xor(left,right);
+            System.out.println("\n\nRunning stage No "+i);
+            
+            
+            //round--start
+            rounded = keyxor(right,s);
+            s1 = s.substring(s.length()-1);
+            s1+=s.substring(0,s.length()-1);
+            s=s1;
+            //round--end
+            
+            left = xor(left,rounded);
             temp = left;
             left = right;
             right = temp;
@@ -55,11 +51,18 @@ public class bytePlay {
         return cipher;
     }
     
-    
-    
-    public String deFiestel(String left,String right){
+    public String deFiestel(String left,String right,String key){
+        System.out.println("/////\nEXECUTING DEFIESTEL");
+        String s = key;
+        String s1,s2;
         String text="";
-        String temp;
+        String temp,rounded;
+        
+        for(int i=0;i<15;i++){
+            s1 = s.substring(s.length()-1);
+            s1+=s.substring(0,s.length()-1);
+            s=s1;
+        }
         
         System.out.println("deFiestel starting :");
         System.out.println("\tleft : "+left);
@@ -67,7 +70,16 @@ public class bytePlay {
         
         for(int i=0;i<16;i++){
             System.out.println("Running stage No "+i);
-            left = xor(left,right);
+            
+            //round--start
+            rounded = keyxor(right,s);
+            s1 = s.substring(1);
+            s1+=s.substring(0,1);
+            s=s1;
+            //round--end
+            
+            
+            left = xor(left,rounded);
             temp = left;
             left = right;
             right = temp;
@@ -80,8 +92,6 @@ public class bytePlay {
         return text;
     }
     
-    
-    
    public String bin2string(String s){  //// gets a string with binary values and gives out the char thingy
         String str = "";
 
@@ -92,7 +102,6 @@ public class bytePlay {
         }
         return str;
    }
-       
     
    public String string2bin(String s){
        byte[] bytes = s.getBytes();
@@ -114,8 +123,8 @@ public class bytePlay {
          return res;
    }
    
-   
    public String xor(String text, String key){         // XOR the text with the key [equal size]
+       System.out.println("EXECUTING XOR");
        String result="";
        byte[] textbyte = text.getBytes();
        byte[] keybyte = key.getBytes();
@@ -129,13 +138,32 @@ public class bytePlay {
            
            result+=(char)mval;
            
-           //i=(i+1)%8;
        }
-       //System.out.println("xored thing = " + result);
        return result;
    }
        
-   
+   public String keyxor(String text, String key){
+       System.out.println("EXECUTING KEYXOR");
+       System.out.println("\tKEY IS "+key);
+       String result="";
+       byte[] textbyte = text.getBytes();
+       byte[] keybyte = key.getBytes();
+       int len = keybyte.length;
+       int i=0;
+       
+       for(byte by :textbyte){
+           
+           int mval = (char)by;
+           int kval = (char)keybyte[i];
+           mval = mval^kval;
+           
+           result+=(char)mval;
+           
+           i=(i+1)%len;
+       }
+       
+       return result; 
+   }
    
    
     

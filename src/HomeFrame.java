@@ -40,11 +40,15 @@ public class HomeFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         plainTextField.setColumns(20);
+        plainTextField.setLineWrap(true);
         plainTextField.setRows(5);
+        plainTextField.setWrapStyleWord(true);
         jScrollPane1.setViewportView(plainTextField);
 
         cipherField.setColumns(20);
+        cipherField.setLineWrap(true);
         cipherField.setRows(5);
+        cipherField.setWrapStyleWord(true);
         jScrollPane2.setViewportView(cipherField);
 
         jLabel1.setText("PlainText");
@@ -71,7 +75,7 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Key[>7]");
+        jLabel3.setText("Key");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +98,7 @@ public class HomeFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(33, 33, 33)
                         .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,11 +163,13 @@ public class HomeFrame extends javax.swing.JFrame {
         
         
         
-        String cipherText = ob.enFiestel(p1,p2);
+        String cipherText = ob.enFiestel(p1,p2,key);
         //cipherText = ob.xor(p1,p2);
         //System.out.println("XORed p1 and p2 : "+cipherText);
         //cipherText = ob.string2bin(cipherText);
         cipherField.setText(cipherText);
+        
+        plainTextField.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void keyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keyFieldActionPerformed
@@ -186,10 +192,11 @@ public class HomeFrame extends javax.swing.JFrame {
         System.out.println("\t"+p1);
         System.out.println("\t"+p2);
         
-        String plainText = ob.deFiestel(p1,p2);
+        String plainText = ob.deFiestel(p1,p2,key);
         //plainText = ob.xor(cipher, key);
         
         plainTextField.setText(plainText);
+        cipherField.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
